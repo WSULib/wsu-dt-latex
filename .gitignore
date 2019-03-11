@@ -1,0 +1,14 @@
+.vscode/
+*.dvi
+*.md5
+*.aux
+*.auxlock
+*.bbl
+*.blg
+*.lof
+*.log
+*.lot
+*.synctex.gz
+*.toc
+*.pdf
+*.out
