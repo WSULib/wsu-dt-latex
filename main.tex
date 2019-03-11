@@ -1,33 +1,79 @@
+%Select document class: 12 point, article
 \documentclass[12pt]{article}
 
 % This template is a combination of work done by Mike Catanzaro and Gabe Angelini-Knoll, both formerly of the WSU math dept, with some additions and synthesizations by Clayton Hayes (clayton.hayes@wayne.edu) for broader use
-% Last updated 4 Dec 2017
+% Last updated 2018-03-10 by Aaron Willcock (ez9213@wayne.edu)
 
+%AMS = American Mathematical Society
+%math, symbols, theorems, fonts
 \usepackage{amsmath, amssymb, amsthm, amsfonts}
-\usepackage{graphicx, enumitem}
-  %\graphicspath{{figures/}} % replace 'figures/' with whatever directory your images are in
-\usepackage{fancyhdr} % Header and footer formatting options
+
+%Enhanced graphics support (https://ctan.org/pkg/graphicx?lang=en)
+\usepackage{graphicx}
+
+%Set default graphics path (replace 'figures/' with whatever directory your images are in)
+%\graphicspath{{figures/}}
+
+
+%Control layout of itemize, enumerate, description (https://ctan.org/pkg/enumitem?lang=en)
+\usepackage{enumitem}
+
+% Header and footer formatting options
+\usepackage{fancyhdr}
+
+%Control float placement. [section] = "stop floats at section boundaries is to change the definition of “\section” to include “\FloatBarrier”"
 \usepackage[section]{placeins}
+
+%Hypertext (links) in LaTeX. [option] = remove color and border on links.
 \usepackage[hidelinks]{hyperref}
-\usepackage[all]{xy}
-\usepackage{mathtools}
+
+%\usepackage[all]{xy}
+%\usepackage{mathtools}
+
+%Pro­gram­ming fa­cil­i­ties for LaTeX class and pack­age authors
 \usepackage{etoolbox}
-\usepackage{indentfirst} % Indent first paragraph of every 'chapter' aka section
-\usepackage[explicit]{titlesec} % Title formatting options; explicit is necessary to make titles all caps
+
+%Indent first paragraph of every 'chapter' aka section
+\usepackage{indentfirst}
+
+%Title formatting option. [explicit] = make titles all caps
+\usepackage[explicit]{titlesec}
+
+%Standard package for selecting font encodings. [T1] = Support for accented characters
+%(https://texfaq.org/FAQ-why-inp-font) - 
+%(https://tex.stackexchange.com/questions/664/why-should-i-use-usepackaget1fontenc)
 \usepackage[T1]{fontenc}
+
+%Charter fonts
 \usepackage{charter}
-\usepackage[expert]{mathdesign}
-\usepackage{tocloft} % More ToC/LoFT formatting options
-\usepackage[doublespacing]{setspace} % Double/single spacing necessary for properly formatting ToC/LoFT and titles
+
+%\usepackage[expert]{mathdesign}
+
+%Control table of contents, figures, etc
+\usepackage{tocloft}
+
+%Set space between lines. [option] = Double/single spacing necessary for properly formatting ToC/LoFT and titles.
+\usepackage[doublespacing]{setspace}
+
+%Create normal/logarithmic plots in two and three dimensions
+\usepackage{pgfplots}
+%Request a specific version
+\pgfplotsset{compat=1.5}
 
 \newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
 
-% Modify section headers (aka chapters) to be large, bold, centered. They should be preceeded with 'CHAPTER ' then sec #, then 0.4 em of space before title; 
+%Modify section headers (aka chapters) to be: centered, single space, large, bold, preceded with the word 'CHAPTER 'and with 0.4 em of space before title 
 \titleformat{\section}[block]{\centering\singlespace\large\bf}{CHAPTER \thesection \hspace{0.4em} \MakeUppercase{#1}}{0em}{}{}
 
-% Remove all vertical space around sections and subsections
+%Modify unnumbered section headers (aka chapters) to be: centered, single space, large, bold, preceded with the word 'CHAPTER 'and with 0.4 em of space before title 
+%   We use unnumbered section headers for Acknowledgements, Dedication, Bio, etc. for consistency
+\titleformat{name=\section,numberless}[block]{\centering\singlespace\large\bf}{\hspace{0.4em} \MakeUppercase{#1}}{0em}{}{}
+
+%Remove spacing left of, above, and below sections and subsections
+% \titlespacing{command}{left spacing}{before spacing}{after spacing}[right] (https://tex.stackexchange.com/questions/53338/reducing-spacing-after-headings)
 \titlespacing{\section}{0pt}{0pt}{0pt}
 \titlespacing{\subsection}{0pt}{0pt}{0pt}
+\titlespacing{\subsubsection}{0pt}{0pt}{0pt}
 
 % Modify TOC entries with tocloft: insert the word 'Chapter ' and then add 6em of space after the word
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
@@ -50,7 +96,14 @@
 \renewcommand\cftsubsubsecafterpnum{\vskip\baselineskip}
 \renewcommand\cftpartafterpnum{\vskip\baselineskip}
 
-% Remove the extra space above and below theorems, lemmas, props, etc. The important point in the following is the  0pt preskip and the 0pt postskip
+%Add space after LoF entries to make them appear double-spaced
+\renewcommand\cftfigafterpnum{\vskip\baselineskip}
+
+%Add space after LoT entries to make them appear double-spaced
+\renewcommand\cfttabafterpnum{\vskip\baselineskip}
+
+% Remove extra space above and below theorems, lemmas, props, etc.
+%The important point in the following is: 0pt preskip and 0pt postskip
 \makeatletter
 \def\thm@space@setup{\thm@preskip=0pt
 \thm@postskip=0pt}
@@ -65,7 +118,10 @@
 { } % Space after theorem header
 {} % Heading
 
-% The above does not fix the spacing around proof environments so use the following; the crucial point is the topsep0\p@, i.e., topsep = 0 pt. The rest is essentially copied from the standard AMS environment.
+%The above does not fix the spacing around proof environments.
+%Use the following to fix.
+%The crucial point is "topsep0\p@", i.e., topsep = 0 pt.
+%The rest is essentially copied from the standard AMS environment.
 \makeatletter
 \renewenvironment{proof}[1][\proofname]{\par
   \pushQED{\qed}%
@@ -78,33 +134,40 @@
 }
 \makeatother
 
-% Fix bibliography heading
-\makeatletter
-\renewenvironment{thebibliography}[1]{%
-  \@xp\section\@xp*\@xp{\refname}%
-  \normalfont\footnotesize\labelsep .5em\relax
-  \renewcommand\theenumiv{\arabic{enumiv}}\let\p@enumiv\@empty
-  \vspace*{-35pt}% NEW
-  \list{\@biblabel{\theenumiv}}{\settowidth\labelwidth{\@biblabel{#1}}%
-    \leftmargin\labelwidth \advance\leftmargin\labelsep
-    \usecounter{enumiv}}%
-  \sloppy \clubpenalty\@M \widowpenalty\clubpenalty
-  \sfcode`\.=\@m
-}{%
-  \def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
-  \endlist
-}
-\makeatother
+%Remove default "References" text from \bibliography call
+%   Removing this code will cause "References" to appear twice in the bibliography:
+%       once for the \thebibliography call and once for the \section*{References} call
+%   From: (https://tex.stackexchange.com/questions/132646/how-to-remove-the-references-title/132654)
+\patchcmd{\thebibliography}{\section*{\refname}}{}{}{}
 
-% Formatting
+%Remove spacing between bibliography entries
+%   From: (https://tex.stackexchange.com/questions/93859/condense-the-space-between-bibliographic-entries)
+%   Set "OLDthebibliography" to be "thebibliography"
+\let\OLDthebibliography\thebibliography
+%   Renew command with 0pt spacing for paragraph and item separation
+\renewcommand\thebibliography[1]{
+    \OLDthebibliography{#1}
+    \setlength{\parskip}{0pt}
+    \setlength{\itemsep}{0pt plus 0.3ex}
+}
+
+%Formatting
+%   Margins
 \usepackage[left=1in,right=1in, top=1in, bottom=1in]{geometry}
+%   \arraystretch = the FACTOR for spacing between two rows (Default = 1) 
 \renewcommand{\arraystretch}{0.85}
+%   \baselinestretch = The spacing between lines in a document (used for "double spacing")
+%   From: (http://www.ctex.org/documents/latex/latex2e-html/baselineskip.html)
 \renewcommand{\baselinestretch}{2}
+%   \headrulewidth = "The thickness of a line under the header and above the footer"
+%   From: (http://tug.ctan.org/macros/latex/contrib/fancyhdr/fancyhdr.pdf) pg 3
 \renewcommand{\headrulewidth}{0pt}
 
+%Define the StarTeX mathematical symbol
+%From: (http://mirror.utexas.edu/ctan/macros/startex/startex.pdf)
 \newcommand{\Mdef}[2]{\newcommand{#1}{\relax \ifmmode #2 \else $#2$\fi}}
 
-% Spacing commands, which may or may not be used in the following.
+%Spacing commands, which may or may not be used in the following.
 \newcommand{\one}{{\rm \bf1}\hspace*{-0.035in} {\rm l}}
 \newcommand{\nd}{\noindent}
 \def\para#1{\vskip 0.4\baselineskip\noindent{\bf #1}}
@@ -113,73 +176,120 @@
 \newcommand{\ID}{\index}
 \makeatletter \@addtoreset{equation}{section} \makeatother
 
+%Section Labeling
 \renewcommand{\thesection}{\arabic{section}}
+
+%Equation Numbering Ex. Section 3, Equation 2 = Equation 3.2
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\cftsecfont}{}
+\renewcommand{\cftsecpagefont}{}
 
+%List of Tables edits
+\renewcommand{\cfttabpresnum}{Table }
+\renewcommand{\cfttabindent}{1.0em}
+\renewcommand{\cfttabnumwidth}{5.0em}
+
+%List of Figures edits
+\renewcommand{\cftfigpresnum}{Figure }
+\renewcommand{\cftfigindent}{1.0em}
+\renewcommand{\cftfignumwidth}{5.5em}
+
+%Start document
 \begin{document}
+
+%Compile the title and jump to new page
 \input{title}
 \newpage
 
+%Begin roman numbering starting with page 2
+%   WSU formatting requires:
+%       No pg number on title
+%       Pg numbering begins with page 2
+%       Pg numbering begins in roman numerals
 \pagestyle{fancy} \chead{} \rhead{} \lhead{}
 \pagenumbering{roman} \lfoot{}\cfoot{\thepage}\rfoot{}
 \setcounter{page}{2}
 
-\phantomsection
-\centerline{\large\bf DEDICATION}
-\bigskip
-\vspace{2.8in}
-\vspace{0.5in} \centerline{\em Write dedication here } 
-\addcontentsline{toc}{part}{Dedication}
-
+%Compile dedication page
+\input{dedication}
 \newpage
 
-\phantomsection
-\centerline{\large\bf ACKNOWLEDGEMENTS}
-\addcontentsline{toc}{part}{Acknowledgements}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sem arcu, maximus sed turpis id, gravida laoreet lorem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin pretium, metus eu pellentesque faucibus, turpis leo malesuada nibh, et venenatis urna purus sit amet ipsum. Proin cursus tristique egestas. Fusce ultrices, elit non suscipit ornare, purus purus cursus quam, at vehicula odio ligula nec augue. Nunc ante orci, euismod sit amet vulputate eu, condimentum ut felis. Suspendisse ac odio vehicula, consectetur nunc sed, ultricies lectus. Etiam sagittis orci at nunc cursus, non mattis nisi posuere. Nulla rutrum felis tortor, vel convallis orci volutpat id. Maecenas sodales elit ac ante sagittis tempor. Curabitur laoreet tincidunt magna, eget eleifend mi sodales nec. Integer felis leo, euismod sed urna sit amet, dapibus pretium odio. Nunc condimentum augue in egestas congue.\par
-Fusce hendrerit ligula at sem consectetur, lobortis rhoncus augue tempor. Ut faucibus velit quis elit feugiat porta. Nullam bibendum neque id leo bibendum laoreet. Nulla sed mi lectus. Cras molestie pharetra velit. Donec quis purus dui. Donec ultrices tincidunt eros eget lacinia. Etiam ullamcorper quam dui, in facilisis libero sollicitudin luctus. Phasellus eget ante eget arcu hendrerit volutpat. Pellentesque molestie faucibus pharetra. Nulla at nulla metus. Vivamus condimentum in sem eget finibus.\par
-Suspendisse vehicula condimentum elit non interdum. Nam vitae laoreet quam, eget malesuada sapien. Nulla facilisi. Etiam non euismod massa. Morbi tincidunt feugiat risus, eu euismod nulla consequat a. Nunc consectetur quam in maximus convallis. Vestibulum ac elementum lorem, vitae mollis tellus. Donec vitae felis porttitor massa gravida accumsan quis ut justo. Maecenas porttitor finibus leo. Sed at mattis nulla.\par
-
+%Compile acknowledgements page
+\input{acknowledgements}
 \newpage
 
+%Enter single spacing environment for toc, lot, and lof (see below)
 \begin{singlespace}
+
+%Create Table of Contents (toc)
 \renewcommand{\contentsname}{\hfill\large TABLE OF CONTENTS \hfill}
 \tableofcontents
-%\newpage
-%\renewcommand{\listtablename}{\hfill\large LIST OF TABLES \hfill}
-%\listoftables
-%\newpage
-%\renewcommand{\listfigurename}{\hfill\large LIST OF FIGURES \hfill}
-%\listoffigures
+\newpage
+
+%Create List of Tables (lot)
+\addcontentsline{toc}{section}{List of Tables}
+%   Add lot to toc
+\renewcommand{\listtablename}{\hfill\large LIST OF TABLES \hfill}
+\listoftables
+\newpage
+
+%Create List of Figures (lof)
+\addcontentsline{toc}{section}{List of Figures}
+%   Add lof to toc
+\renewcommand{\listfigurename}{\hfill\large LIST OF FIGURES \hfill}
+\listoffigures
+
+%Exit single spacing environment for remaining contents
 \end{singlespace}
 
 \clearpage
 
+%Begin arabic page numbering
+%   WSU formatting requires:
+%       Content page numbering is arabic
 \pagestyle{fancy} \chead{\thepage} \rhead{} \lhead{}
 \pagenumbering{arabic} \lfoot{}\cfoot{}\rfoot{}
 \setcounter{equation}{0}
 
-\input{Introduction}
-\newpage
+%Compile Chapter 1
 \input{chapter1}
-\newpage
+\clearpage
+
+%Compile Chapter 2
 \input{chapter2}
-\newpage
-\input{chapter3} 
-\newpage
-\input{chapter4}
-\newpage
-\input{chapter5}
-\newpage
-\input{bib}
+\clearpage
 
-\newpage
+%...
+
+%Compile Chapter N
+\input{chapterN}
+\clearpage
+
+
+%Compile Appendix A
+\input{appendixA}
+\clearpage
+
+%Compile Appendix B
+\input{appendixB}
+\clearpage
+
+%...
+
+%Compile Appendix Z
+\input{appendixZ}
+\clearpage
+
+%Compile bibliography
+\input{bibliography}
+\clearpage
+
+%Compile abstract
 \input{abstract}
+\clearpage
 
-\newpage
-\input{bio}
+%Compile autobiographical statement
+\input{autobiographicalStatement}
 
 \end{document}
-
