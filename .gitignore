@@ -12,3 +12,4 @@
 *.toc
 *.pdf
 *.out
+!fig/*.pdf
