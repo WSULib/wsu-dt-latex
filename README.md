@@ -20,4 +20,4 @@ xelatex main.tex
 The unedited, accepted latex upon which the last thesis template revision was adapted can be found [on Github](https://github.com/aarontwillcock/wsu-ms-cs-tufc).
 
 ## Disclaimer
-This not an official template, but does follow the guidelines laid out by [Wayne State University's Graduate School Manual](https://gradschool.wayne.edu/phd/disseration_and_thesis_format_guidelines.pdf).
+This not an official template, but does follow the guidelines laid out by [Wayne State University's Graduate School Manual](https://gradschool.wayne.edu/phd/complete_format_guidelines_6_2012.pdf).
