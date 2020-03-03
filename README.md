@@ -4,13 +4,16 @@ This template builds on dissertations prepared in LaTeX by [Michael Catanzaro](h
 
 ## Compiling
 The template can be compiled with pdflatex,
-
 ```sh
 pdflatex main.tex
 ```
-or lualatex,
+lualatex,
 ```sh
 lualatex main.tex
+```
+or xelatex
+```sh
+xelatex main.tex
 ```
 
 ## Original LaTeX
