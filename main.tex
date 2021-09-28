@@ -1,76 +1,71 @@
-%Select document class: 12 point, article
+% Select document class: 12 point, article
 \documentclass[12pt]{article}
 
-% This template is a combination of work done by Mike Catanzaro and Gabe Angelini-Knoll, both formerly of the WSU math dept, with some additions and synthesizations by Clayton Hayes (clayton.hayes@wayne.edu) for broader use
-% Last updated 2018-03-10 by Aaron Willcock (ez9213@wayne.edu)
+% This template is based on work done by Mike Catanzaro and Gabe Angelini-Knoll, both formerly of the WSU math department, with updates in 2019 by Aaron Willcock (ez9213@wayne.edu) for the updated WSU dissertation and thesis formatting guidelines. It is currently maintained by Clayton Hayes (clayton.hayes@wayne.edu) of the WSU Libraries, who created the original template and has made some slight adjustments to facilitate code readability.
 
-%AMS = American Mathematical Society
-%math, symbols, theorems, fonts
+% AMS = American Mathematical Society; math, symbols, theorems, fonts
 \usepackage{amsmath, amssymb, amsthm, amsfonts}
 
-%Enhanced graphics support (https://ctan.org/pkg/graphicx?lang=en)
+% Enhanced graphics support (https://ctan.org/pkg/graphicx?lang=en)
 \usepackage{graphicx}
 
-%Set default graphics path (replace 'figures/' with whatever directory your images are in)
+% Set default graphics path (replace 'figures/' with whatever directory your images are in)
 %\graphicspath{{figures/}}
-
-
-%Control layout of itemize, enumerate, description (https://ctan.org/pkg/enumitem?lang=en)
+ 
+% Control layout of itemize, enumerate, description (https://ctan.org/pkg/enumitem?lang=en)
 \usepackage{enumitem}
 
 % Header and footer formatting options
 \usepackage{fancyhdr}
 
-%Control float placement. [section] = "stop floats at section boundaries is to change the definition of “\section” to include “\FloatBarrier”"
+% Control float placement. [section] = "stop floats at section boundaries is to change the definition of “\section” to include “\FloatBarrier”"
 \usepackage[section]{placeins}
 
-%Hypertext (links) in LaTeX. [option] = remove color and border on links.
+% Hypertext (links) in LaTeX. [option] = remove color and border on links.
 \usepackage[hidelinks]{hyperref}
 
 %\usepackage[all]{xy}
 %\usepackage{mathtools}
 
-%Pro­gram­ming fa­cil­i­ties for LaTeX class and pack­age authors
+% Programming facilities for LaTeX class and package authors
 \usepackage{etoolbox}
 
-%Indent first paragraph of every 'chapter' aka section
+% Indent first paragraph of every 'chapter' aka section
 \usepackage{indentfirst}
 
-%Title formatting option. [explicit] = make titles all caps
+% Title formatting option. [explicit] = make titles all caps
 \usepackage[explicit]{titlesec}
 
-%Standard package for selecting font encodings. [T1] = Support for accented characters
-%(https://texfaq.org/FAQ-why-inp-font) - 
-%(https://tex.stackexchange.com/questions/664/why-should-i-use-usepackaget1fontenc)
+% Standard package for selecting font encodings. [T1] = Support for accented characters
 \usepackage[T1]{fontenc}
 
-%Charter fonts
+% Charter fonts
 \usepackage{charter}
 
 %\usepackage[expert]{mathdesign}
 
-%Control table of contents, figures, etc
+% Control table of contents, figures, etc
 \usepackage{tocloft}
 
-%Set space between lines. [option] = Double/single spacing necessary for properly formatting ToC/LoFT and titles.
+% Set space between lines. [option] = Double/single spacing necessary for properly formatting ToC/LoFT and titles.
 \usepackage[doublespacing]{setspace}
 
-%Create normal/logarithmic plots in two and three dimensions
+% Create normal/logarithmic plots in two and three dimensions
 \usepackage{pgfplots}
-%Request a specific version
+% Request a specific version
 \pgfplotsset{compat=1.5}
 
 \newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
 
-%Modify section headers (aka chapters) to be: centered, single space, large, bold, preceded with the word 'CHAPTER 'and with 0.4 em of space before title 
+% Modify section headers (aka chapters) to be: centered, single space, large, bold, preceded with the word 'CHAPTER 'and with 0.4 em of space before title 
 \titleformat{\section}[block]{\centering\singlespace\large\bf}{CHAPTER \thesection \hspace{0.4em} \MakeUppercase{#1}}{0em}{}{}
 
-%Modify unnumbered section headers (aka chapters) to be: centered, single space, large, bold, preceded with the word 'CHAPTER 'and with 0.4 em of space before title 
+% Modify unnumbered section headers (aka chapters) to be: centered, single space, large, bold, preceded with the word 'CHAPTER 'and with 0.4 em of space before title 
 %   We use unnumbered section headers for Acknowledgements, Dedication, Bio, etc. for consistency
 \titleformat{name=\section,numberless}[block]{\centering\singlespace\large\bf}{\hspace{0.4em} \MakeUppercase{#1}}{0em}{}{}
 
-%Remove spacing left of, above, and below sections and subsections
-% \titlespacing{command}{left spacing}{before spacing}{after spacing}[right] (https://tex.stackexchange.com/questions/53338/reducing-spacing-after-headings)
+% Remove spacing left of, above, and below sections and subsections
+%\titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
 \titlespacing{\section}{0pt}{0pt}{0pt}
 \titlespacing{\subsection}{0pt}{0pt}{0pt}
 \titlespacing{\subsubsection}{0pt}{0pt}{0pt}
@@ -96,14 +91,13 @@
 \renewcommand\cftsubsubsecafterpnum{\vskip\baselineskip}
 \renewcommand\cftpartafterpnum{\vskip\baselineskip}
 
-%Add space after LoF entries to make them appear double-spaced
+% Add space after LoF entries to make them appear double-spaced
 \renewcommand\cftfigafterpnum{\vskip\baselineskip}
 
-%Add space after LoT entries to make them appear double-spaced
+% Add space after LoT entries to make them appear double-spaced
 \renewcommand\cfttabafterpnum{\vskip\baselineskip}
 
-% Remove extra space above and below theorems, lemmas, props, etc.
-%The important point in the following is: 0pt preskip and 0pt postskip
+% Remove extra space above and below theorems, lemmas, props, etc. The important point in the following is: 0pt preskip and 0pt postskip
 \makeatletter
 \def\thm@space@setup{\thm@preskip=0pt
 \thm@postskip=0pt}
@@ -118,10 +112,7 @@
 { } % Space after theorem header
 {} % Heading
 
-%The above does not fix the spacing around proof environments.
-%Use the following to fix.
-%The crucial point is "topsep0\p@", i.e., topsep = 0 pt.
-%The rest is essentially copied from the standard AMS environment.
+% The above does not fix the spacing around proof environments; use the following to fix: The crucial point is "topsep0\p@", i.e., topsep = 0 pt. The rest is essentially copied from the standard AMS environment.
 \makeatletter
 \renewenvironment{proof}[1][\proofname]{\par
   \pushQED{\qed}%
@@ -134,40 +125,33 @@
 }
 \makeatother
 
-%Remove default "References" text from \bibliography call
-%   Removing this code will cause "References" to appear twice in the bibliography:
-%       once for the \thebibliography call and once for the \section*{References} call
-%   From: (https://tex.stackexchange.com/questions/132646/how-to-remove-the-references-title/132654)
+% Remove default "References" text from \bibliography call
+%   Removing this code will cause "References" to appear twice in the bibliography: once for the \thebibliography call and once for the \section*{References} call
 \patchcmd{\thebibliography}{\section*{\refname}}{}{}{}
 
-%Remove spacing between bibliography entries
-%   From: (https://tex.stackexchange.com/questions/93859/condense-the-space-between-bibliographic-entries)
-%   Set "OLDthebibliography" to be "thebibliography"
+% Remove spacing between bibliography entries
+% Set "OLDthebibliography" to be "thebibliography"
 \let\OLDthebibliography\thebibliography
-%   Renew command with 0pt spacing for paragraph and item separation
+% Renew command with 0pt spacing for paragraph and item separation
 \renewcommand\thebibliography[1]{
     \OLDthebibliography{#1}
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 0.3ex}
 }
 
-%Formatting
-%   Margins
+% Formatting
 \usepackage[left=1in,right=1in, top=1in, bottom=1in]{geometry}
-%   \arraystretch = the FACTOR for spacing between two rows (Default = 1) 
+% \arraystretch = the FACTOR for spacing between two rows (Default = 1) 
 \renewcommand{\arraystretch}{0.85}
-%   \baselinestretch = The spacing between lines in a document (used for "double spacing")
-%   From: (http://www.ctex.org/documents/latex/latex2e-html/baselineskip.html)
+% \baselinestretch = The spacing between lines in a document (used for "double spacing")
 \renewcommand{\baselinestretch}{2}
-%   \headrulewidth = "The thickness of a line under the header and above the footer"
-%   From: (http://tug.ctan.org/macros/latex/contrib/fancyhdr/fancyhdr.pdf) pg 3
+% \headrulewidth = "The thickness of a line under the header and above the footer"
 \renewcommand{\headrulewidth}{0pt}
 
-%Define the StarTeX mathematical symbol
-%From: (http://mirror.utexas.edu/ctan/macros/startex/startex.pdf)
+% Define the StarTeX mathematical symbol
 \newcommand{\Mdef}[2]{\newcommand{#1}{\relax \ifmmode #2 \else $#2$\fi}}
 
-%Spacing commands, which may or may not be used in the following.
+% Spacing commands, which may or may not be used in the following.
 \newcommand{\one}{{\rm \bf1}\hspace*{-0.035in} {\rm l}}
 \newcommand{\nd}{\noindent}
 \def\para#1{\vskip 0.4\baselineskip\noindent{\bf #1}}
@@ -176,120 +160,125 @@
 \newcommand{\ID}{\index}
 \makeatletter \@addtoreset{equation}{section} \makeatother
 
-%Section Labeling
+% Section Labeling
 \renewcommand{\thesection}{\arabic{section}}
 
-%Equation Numbering Ex. Section 3, Equation 2 = Equation 3.2
+% Equation Numbering Ex. Section 3, Equation 2 = Equation 3.2
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
 
 \renewcommand{\cftsecfont}{}
 \renewcommand{\cftsecpagefont}{}
 
-%List of Tables edits
+% List of Tables edits
 \renewcommand{\cfttabpresnum}{Table }
 \renewcommand{\cfttabindent}{1.0em}
 \renewcommand{\cfttabnumwidth}{5.0em}
 
-%List of Figures edits
+% List of Figures edits
 \renewcommand{\cftfigpresnum}{Figure }
 \renewcommand{\cftfigindent}{1.0em}
 \renewcommand{\cftfignumwidth}{5.5em}
 
-%Start document
+% Start document
 \begin{document}
 
-%Compile the title and jump to new page
+% Compile the title and jump to new page
 \input{title}
 \newpage
 
-%Begin roman numbering starting with page 2
-%   WSU formatting requires:
-%       No pg number on title
-%       Pg numbering begins with page 2
-%       Pg numbering begins in roman numerals
+% Begin roman numbering starting with page 2
+%   WSU formatting requires: No pg number on title, pg numbering begins with page 2, pg numbering begins in roman numerals
 \pagestyle{fancy} \chead{} \rhead{} \lhead{}
 \pagenumbering{roman} \lfoot{}\cfoot{\thepage}\rfoot{}
 \setcounter{page}{2}
 
-%Compile dedication page
+% Compile dedication page
+\phantomsection
 \input{dedication}
 \newpage
 
-%Compile acknowledgements page
+% Compile acknowledgements page
+\phantomsection
 \input{acknowledgements}
 \newpage
 
-%Enter single spacing environment for toc, lot, and lof (see below)
+% Enter single spacing environment for toc, lot, and lof (see below)
 \begin{singlespace}
 
-%Create Table of Contents (toc)
+% Create Table of Contents (toc)
 \renewcommand{\contentsname}{\hfill\large TABLE OF CONTENTS \hfill}
 \tableofcontents
 \newpage
 
-%Create List of Tables (lot)
+% Create List of Tables (lot)
+\phantomsection
 \addcontentsline{toc}{section}{List of Tables}
-%   Add lot to toc
+% Add lot to toc
 \renewcommand{\listtablename}{\hfill\large LIST OF TABLES \hfill}
 \listoftables
 \newpage
 
-%Create List of Figures (lof)
+% Create List of Figures (lof)
+\phantomsection
 \addcontentsline{toc}{section}{List of Figures}
-%   Add lof to toc
+% Add lof to toc
 \renewcommand{\listfigurename}{\hfill\large LIST OF FIGURES \hfill}
 \listoffigures
 
-%Exit single spacing environment for remaining contents
+% Exit single spacing environment for remaining contents
 \end{singlespace}
 
 \clearpage
 
-%Begin arabic page numbering
-%   WSU formatting requires:
-%       Content page numbering is arabic
+% Begin arabic page numbering
+%   WSU formatting requires: content page numbering is arabic
 \pagestyle{fancy} \chead{\thepage} \rhead{} \lhead{}
 \pagenumbering{arabic} \lfoot{}\cfoot{}\rfoot{}
 \setcounter{equation}{0}
 
-%Compile Chapter 1
+% Compile Chapter 1
 \input{chapter1}
 \clearpage
 
-%Compile Chapter 2
+% Compile Chapter 2
 \input{chapter2}
 \clearpage
 
-%...
+% ...
 
-%Compile Chapter N
+% Compile Chapter N
 \input{chapterN}
 \clearpage
 
-
-%Compile Appendix A
+% Compile Appendix A
+\phantomsection
 \input{appendixA}
 \clearpage
 
-%Compile Appendix B
+% Compile Appendix B
+\phantomsection
 \input{appendixB}
 \clearpage
 
-%...
+% ...
 
-%Compile Appendix Z
+% Compile Appendix Z
+\phantomsection
 \input{appendixZ}
 \clearpage
 
-%Compile bibliography
+% Compile bibliography
+\phantomsection
 \input{bibliography}
 \clearpage
 
-%Compile abstract
+% Compile abstract
+\phantomsection
 \input{abstract}
 \clearpage
 
-%Compile autobiographical statement
+% Compile autobiographical statement
+\phantomsection
 \input{autobiographicalStatement}
 
 \end{document}
